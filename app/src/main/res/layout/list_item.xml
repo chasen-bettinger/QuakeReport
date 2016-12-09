@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/stylelayout"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingTop="16dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/magnitude"
