@@ -5,28 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center">
 
     <TextView
         android:id="@+id/magnitude"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:background="@drawable/magnitude_circle"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
         tools:text="7.2" />
+
+    <TextView
+        android:id="@+id/specificlocation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="80km W of"
+        android:paddingLeft="16dp"/>
 
     <TextView
         android:id="@+id/location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-
         tools:text="San Francisco" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         tools:text="Feb 7th, 2016" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        tools:text="9:00 PM" />
 
 </LinearLayout>
