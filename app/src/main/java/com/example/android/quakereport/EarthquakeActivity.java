@@ -26,6 +26,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +40,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
     private EarthquakeAdapter adapter;
     private static final String EARTHQUAKE_API_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
+    private TextView emptyTextView;
 
 
     @Override
@@ -44,6 +50,9 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
         setContentView(R.layout.earthquake_activity);
 
         ListView earthquakeListView = (ListView) findViewById(R.id.list);
+
+        emptyTextView = (TextView) findViewById(R.id.empty_view);
+        earthquakeListView.setEmptyView(emptyTextView);
 
         // Find a reference to the {@link ListView} in the layout
         adapter = new EarthquakeAdapter(this, new ArrayList<Earthquake>());
@@ -81,6 +90,11 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
+
+        emptyTextView.setText("No earthquakes to display");
+
+        ProgressBar bar = (ProgressBar) findViewById(R.id.loading_spinner);
+        bar.setVisibility(View.GONE);
 
         Log.v(LOG_TAG, "onLoadFinished starting to run");
         // Clear the adapter of previous earthquake data
