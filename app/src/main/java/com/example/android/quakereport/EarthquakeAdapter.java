@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Chasen on 12/9/2016.
@@ -19,7 +20,7 @@ import java.util.Date;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
 
-    public EarthquakeAdapter(Context context, ArrayList<Earthquake> earthquakes) {
+    public EarthquakeAdapter(Context context, List<Earthquake> earthquakes) {
         super(context, 0, earthquakes);
     }
 
