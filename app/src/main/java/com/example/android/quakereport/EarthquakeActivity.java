@@ -17,8 +17,11 @@ package com.example.android.quakereport;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +44,6 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
     private EarthquakeAdapter adapter;
     private static final String EARTHQUAKE_API_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&eventtype=earthquake&orderby=time&minmag=6&limit=10";
     private TextView emptyTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +80,20 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
             }
         });
 
-        getLoaderManager().initLoader(0, null, this);
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+
+        if (isConnected) {
+            getLoaderManager().initLoader(0, null, this);
+        } else {
+            emptyTextView.setText("No internet connection");
+
+            ProgressBar bar = (ProgressBar) findViewById(R.id.loading_spinner);
+            bar.setVisibility(View.GONE);
+        }
     }
 
     @Override
