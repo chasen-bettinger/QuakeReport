@@ -18,6 +18,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 
 /**
@@ -26,7 +28,7 @@ import static com.example.android.quakereport.EarthquakeActivity.LOG_TAG;
 public final class QueryUtils {
 
 
-    private static final String LOGTAG = QueryUtils.class.getName();
+    private static final String LOG_TAG = QueryUtils.class.getName();
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -55,6 +57,8 @@ public final class QueryUtils {
             Log.e(LOG_TAG, "Error closing input stream", e);
         }
 
+        Log.v(LOG_TAG, jsonResponse);
+
         // Extract relevant fields from the JSON response and create an {@link Event} object
         List<Earthquake> earthquake = extractEarthquakes(jsonResponse);
         // Return the {@link Event}
@@ -75,8 +79,8 @@ public final class QueryUtils {
         // is formatted, a JSONException exception object will be thrown.
         // Catch the exception so the app doesn't crash, and print the error message to the logs.
         try {
-
             JSONObject jsonObject = new JSONObject(jsonString);
+
 
             JSONArray feature = jsonObject.optJSONArray("features");
 
@@ -115,7 +119,7 @@ public final class QueryUtils {
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
-            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection = (HttpsURLConnection) url.openConnection();
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.setRequestMethod("GET");

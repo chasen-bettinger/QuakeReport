@@ -46,7 +46,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
 
     public static final String LOG_TAG = EarthquakeActivity.class.getName();
     private EarthquakeAdapter adapter;
-    private static final String EARTHQUAKE_API_URL = "http://earthquake.usgs.gov/fdsnws/event/1/query";
+    private static final String EARTHQUAKE_API_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
     private TextView emptyTextView;
 
     @Override
@@ -121,6 +121,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
         uriBuilder.appendQueryParameter("limit", "10");
         uriBuilder.appendQueryParameter("minmag", minMagnitude);
         uriBuilder.appendQueryParameter("orderby", "time");
+
+        Log.v(LOG_TAG, uriBuilder.toString());
 
         // Create a new loader for the given URL
         return new EarthquakeLoader(this, uriBuilder.toString());
